@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+  <link rel="stylesheet" href="stil.css">
+  <link rel="icon" href="https://play-lh.googleusercontent.com/1f3mZOTMRtA3ZNziwerNcOrvx5OYEgDyvhkZrX454pmZ4Itwi2pzid5vFdkxLF2MzQ" type="image/x-icon">
+  <title>Subnet Details Generator</title>
+</head>
+<body>
+
+  <div class="generator-container">
+    <h1>Detajet mbi Subnet</h1>
+    <form id="generator-form">
+      <label for="networkId">Network ID:</label>
+      <input type="text" id="networkId" placeholder="Enter Network ID" required>
+
+      <label for="numSubnets">Numri i Subnet-ve:</label>
+      <input type="number" id="numSubnets" placeholder="Enter Number of Subnets" required>
+
+      <button type="button" onclick="generate()">Gjenero</button>
+    </form>
+
+    <div id="result-container">
+      <h2>Rezultati</h2>
+      <ul id="subnetList"></ul>
+    </div>
+  </div>
+
+  <script src="a.js"></script>
+</body>
+</html>

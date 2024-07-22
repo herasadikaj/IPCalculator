@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Network and Broadcast ID Finder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+
+    input {
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    div {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Network and Broadcast ID Finder</h2>
+
+  <label for="ipAddress">IP Address:</label>
+  <input type="text" id="ipAddress" placeholder="Enter IP Address">
+
+  <label for="subnetMask">Subnet Mask:</label>
+  <input type="text" id="subnetMask" placeholder="Enter Subnet Mask">
+
+  <button onclick="calculateIds()">Calculate IDs</button>
+
+  <div id="result"></div>
+
+  <script>
+    function calculateIds() {
+      const ipAddress = document.getElementById('ipAddress').value;
+      const subnetMask = document.getElementById('subnetMask').value;
+
+      const result = findNetworkAndBroadcastIds(ipAddress, subnetMask);
+
+      document.getElementById('result').innerHTML = `
+        <p><strong>Network ID:</strong> ${result.networkId}</p>
+        <p><strong>Broadcast ID:</strong> ${result.broadcastId}</p>
+      `;
+    }
+
+    function findNetworkAndBroadcastIds(ipAddress, subnetMask) {
+      const ipBinary = ipAddress.split('.').map(octet => parseInt(octet).toString(2).padStart(8, '0')).join('');
+      const subnetBinary = subnetMask.split('.').map(octet => parseInt(octet).toString(2).padStart(8, '0')).join('');
+
+      const networkBinary = ipBinary.split('').map((bit, index) => (bit & subnetBinary[index])).join('');
+      const hostBits = subnetBinary.split('').map((bit, index) => (bit ^ 1) & networkBinary[index]).join('');
+      const broadcastBinary = networkBinary.split('').map((bit, index) => parseInt(bit) | parseInt(hostBits[index])).join('');
+
+      const networkId = networkBinary.match(/.{1,8}/g).map(byte => parseInt(byte, 2)).join('.');
+      const broadcastId = broadcastBinary.match(/.{1,8}/g).map(byte => parseInt(byte, 2)).join('');
+
+      return {
+        networkId: networkId,
+        broadcastId: broadcastId
+      };
+    }
+  </script>
+
+</body>
+</html>

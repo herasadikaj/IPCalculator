@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <title>IP Calculator</title>
+  <link rel="icon" href="https://play-lh.googleusercontent.com/1f3mZOTMRtA3ZNziwerNcOrvx5OYEgDyvhkZrX454pmZ4Itwi2pzid5vFdkxLF2MzQ" type="image/x-icon">
+</head>
+<body>
+
+  <div class="calculator-container">
+    <h1>IP Calculator</h1>
+    <form id="calculator-form">
+      <label for="ipAddress">IP Address:</label>
+      <input type="text" id="ipAddress" placeholder="Enter IP Address" required>
+
+      <label for="subnetMask">Subnet Mask:</label>
+      <input type="text" id="subnetMask" placeholder="Enter Subnet Mask" required>
+
+      <button type="button" onclick="calculate()">Kalkulo</button>
+    </form>
+
+    <div id="result-container">
+      <h2>Rezultati</h2>
+      <p><strong>Network ID:</strong> <span id="networkIdResult"></span></p>
+      <p><strong>Broadcast ID:</strong> <span id="broadcastIdResult"></span></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
